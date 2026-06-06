@@ -1,0 +1,54 @@
+[project]
+name = "hw4"
+version = "0.1.0"
+description = "CS515 HW4 - Financial Forecasting with Deep Learning"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "hatchling>=1.30.1",
+    "matplotlib>=3.10.9",
+    "mypy>=2.1.0",
+    "numpy>=2.4.6",
+    "pandas>=3.0.3",
+    "pandas-stubs>=2.2.3.250308",
+    "pytest>=9.0.3",
+    "ruff>=0.15.15",
+    "scipy>=1.17.1",
+    "torch>=2.2.0",
+    "yfinance>=1.4.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+# Disallow Any explicitly
+disallow_any_explicit = true
+disallow_any_generics = true
+warn_return_any = true
+# Allow untyped defs in test files only
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[[tool.mypy.overrides]]
+module = "yfinance"
+ignore_missing_imports = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/financial_forecasting"]
